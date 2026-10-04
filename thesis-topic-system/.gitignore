@@ -1,0 +1,56 @@
+# ============================================================
+#  基于 SpringBoot 的毕业设计选题系统 —— 仓库根 .gitignore
+# ============================================================
+
+# ---- 依赖目录 ----
+node_modules/
+**/node_modules/
+
+# ---- 构建产物 ----
+target/
+**/target/
+dist/
+**/dist/
+build/
+**/build/
+
+# ---- 预编译产物（体积过大：单个 fat jar 81.66MB，不入库）----
+# 需要二进制发布包时请自行在本地构建，或从 Release 附件下载
+windows-deploy/05-预编译产物/
+
+# ---- 前端 sourcemap（体积大且无必要入库）----
+*.js.map
+*.css.map
+
+# ---- 打包 / 压缩产物 ----
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+
+# ---- IDE / 编辑器 ----
+.idea/
+.vscode/
+*.iml
+*.suo
+*.sw?
+
+# ---- 操作系统 ----
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- 日志与临时文件 ----
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ---- 本地私有配置（不入库）----
+local-paths.bat
+**/local-paths.bat
+.env.local
+.env.*.local
