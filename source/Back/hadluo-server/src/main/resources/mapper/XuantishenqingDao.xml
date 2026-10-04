@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadluo.dao.XuantishenqingDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hadluo.entity.XuantishenqingEntity" id="xuantishenqingMap">
+        <result property="timubianhao" column="timubianhao"/>
+        <result property="ketimingcheng" column="ketimingcheng"/>
+        <result property="timuleixing" column="timuleixing"/>
+        <result property="zhuanye" column="zhuanye"/>
+        <result property="ketixingzhi" column="ketixingzhi"/>
+        <result property="xuantishijian" column="xuantishijian"/>
+        <result property="jiaoshigonghao" column="jiaoshigonghao"/>
+        <result property="jiaoshixingming" column="jiaoshixingming"/>
+        <result property="xuehao" column="xuehao"/>
+        <result property="xueshengxingming" column="xueshengxingming"/>
+        <result property="shenqingyuanyin" column="shenqingyuanyin"/>
+        <result property="shenqingshijian" column="shenqingshijian"/>
+        <result property="shenhezhuangtai" column="shenhezhuangtai"/>
+        <result property="shenheshijian" column="shenheshijian"/>
+        <result property="shenhejilu" column="shenhejilu"/>
+        <result property="crossuserid" column="crossuserid"/>
+        <result property="crossrefid" column="crossrefid"/>
+    </resultMap>
+
+    <select id="selectListView"
+		resultType="com.hadluo.entity.view.XuantishenqingView" >
+
+		SELECT  xuantishenqing.* FROM xuantishenqing  xuantishenqing 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.hadluo.entity.view.XuantishenqingView" >
+		SELECT * FROM xuantishenqing  xuantishenqing <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>

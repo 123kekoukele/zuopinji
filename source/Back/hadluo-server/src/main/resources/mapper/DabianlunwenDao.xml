@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadluo.dao.DabianlunwenDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hadluo.entity.DabianlunwenEntity" id="dabianlunwenMap">
+        <result property="timubianhao" column="timubianhao"/>
+        <result property="ketimingcheng" column="ketimingcheng"/>
+        <result property="timuleixing" column="timuleixing"/>
+        <result property="zhuanye" column="zhuanye"/>
+        <result property="ketixingzhi" column="ketixingzhi"/>
+        <result property="jiaoshigonghao" column="jiaoshigonghao"/>
+        <result property="jiaoshixingming" column="jiaoshixingming"/>
+        <result property="xuehao" column="xuehao"/>
+        <result property="xueshengxingming" column="xueshengxingming"/>
+        <result property="lunwenjianjie" column="lunwenjianjie"/>
+        <result property="lunwenfujian" column="lunwenfujian"/>
+        <result property="tijiaoshijian" column="tijiaoshijian"/>
+        <result property="pingfenzhuangtai" column="pingfenzhuangtai"/>
+    </resultMap>
+
+    <select id="selectListView"
+		resultType="com.hadluo.entity.view.DabianlunwenView" >
+
+		SELECT  dabianlunwen.* FROM dabianlunwen  dabianlunwen 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.hadluo.entity.view.DabianlunwenView" >
+		SELECT * FROM dabianlunwen  dabianlunwen <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+
+</mapper>

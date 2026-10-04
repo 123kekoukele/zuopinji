@@ -1,0 +1,4 @@
+在完整开发仓库中执行：
+node scripts/build-opensource-release-package.js
+
+本开源包已自动脱敏，不包含远程服务器 IP、SSH 密码、API 密钥及远程运维脚本。

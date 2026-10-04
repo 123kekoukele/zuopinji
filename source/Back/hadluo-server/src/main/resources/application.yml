@@ -1,0 +1,85 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+    port: 8080
+    servlet:
+        context-path: /hadluo-xt
+
+spring:
+  application:
+    name: spring-ai-alibaba-chat
+  # 通义千问：请设置环境变量 DASHSCOPE_API_KEY
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY:}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hadluo-lvyou?useUnicode=true&characterEncoding=utf-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+#        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#        url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=cl3196870
+#        username: sa
+#        password: 123456
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 25MB
+  resources:
+    static-locations: classpath:static/,file:static/
+
+# Redis 缓存（本地默认连接 127.0.0.1:6379，需先启动 redis-server）
+redis:
+  enabled: true
+  host: 127.0.0.1
+  port: 6379
+  password:
+  database: 0
+  timeout: 3000
+  cache:
+    config-ttl: 3600
+    menu-ttl: 1800
+    dashboard-ttl: 300
+
+# MinIO 对象存储（本地开发连接桌面 MinIO，免 Docker 版或 Docker 版均可）
+minio:
+  enabled: true
+  endpoint: http://127.0.0.1:9000
+  access-key: hadluo
+  secret-key: HadluoMinio@2026
+  bucket-name: hadluo-files
+  object-prefix: file/
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.hadluo.entity
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 1
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #逻辑删除配置
+    logic-delete-value: -1
+    logic-not-delete-value: 0
+    #自定义SQL注入器
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    #springboot 项目mybatis plus 设置 jdbcTypeForNull (oracle数据库需配置JdbcType.NULL, 默认是Other)
+    jdbc-type-for-null: 'null'
+
+# 日志配置 - 隐藏 MyBatis 扫描器的警告
+logging:
+  level:
+    org.mybatis.spring.mapper.ClassPathMapperScanner: ERROR

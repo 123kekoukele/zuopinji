@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadluo.dao.TimuxinxiDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hadluo.entity.TimuxinxiEntity" id="timuxinxiMap">
+        <result property="timubianhao" column="timubianhao"/>
+        <result property="ketimingcheng" column="ketimingcheng"/>
+        <result property="timuleixing" column="timuleixing"/>
+        <result property="zhuanye" column="zhuanye"/>
+        <result property="timufengmian" column="timufengmian"/>
+        <result property="ketixingzhi" column="ketixingzhi"/>
+        <result property="timufanwei" column="timufanwei"/>
+        <result property="xuantishijian" column="xuantishijian"/>
+        <result property="jiaoshigonghao" column="jiaoshigonghao"/>
+        <result property="jiaoshixingming" column="jiaoshixingming"/>
+        <result property="fabushijian" column="fabushijian"/>
+        <result property="storeupnum" column="storeupnum"/>
+    </resultMap>
+
+    <select id="selectListView"
+		resultType="com.hadluo.entity.view.TimuxinxiView" >
+
+		SELECT  timuxinxi.* FROM timuxinxi  timuxinxi 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+    <select id="selectView"
+		resultType="com.hadluo.entity.view.TimuxinxiView" >
+		SELECT * FROM timuxinxi  timuxinxi <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+	<!-- 按题目编号加行锁，保证选题申请事务内同一题目串行化 -->
+	<select id="selectByTimubianhaoForUpdate" resultType="com.hadluo.entity.TimuxinxiEntity">
+		SELECT * FROM timuxinxi WHERE timubianhao = #{timubianhao} LIMIT 1 FOR UPDATE
+	</select>
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadluo.dao.TimuleixingDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hadluo.entity.TimuleixingEntity" id="timuleixingMap">
+        <result property="timuleixing" column="timuleixing"/>
+    </resultMap>
+
+    <select id="selectListView"
+		resultType="com.hadluo.entity.view.TimuleixingView" >
+
+		SELECT  timuleixing.* FROM timuleixing  timuleixing 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.hadluo.entity.view.TimuleixingView" >
+		SELECT * FROM timuleixing  timuleixing <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+
+	<select id="selectTopicTypeStats" resultType="map">
+		SELECT timuleixing AS timuleixing, COUNT(1) AS topicCount
+		FROM timuxinxi
+		WHERE timuleixing IS NOT NULL AND TRIM(timuleixing) != ''
+		<if test="jiaoshigonghao != null and jiaoshigonghao != ''">
+			AND jiaoshigonghao = #{jiaoshigonghao}
+		</if>
+		<if test="zhuanye != null and zhuanye != ''">
+			AND zhuanye = #{zhuanye}
+		</if>
+		GROUP BY timuleixing
+	</select>
+
+
+</mapper>

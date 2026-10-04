@@ -1,0 +1,113 @@
+package com.hadluo.utils;
+
+import java.util.Random;
+import java.util.ArrayList;
+import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import org.apache.poi.ss.usermodel.DateUtil;
+import java.util.Objects;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Component
+public class CommonUtil {
+    /**
+     * 获取随机字符串
+     *
+     * @param num
+     * @return
+     */
+    public static String getRandomString(Integer num) {
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < num; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 获取随机验证码
+     *
+     * @param num
+     * @return
+     */
+    public static String getRandomNumber(Integer num) {
+        String base = "0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < num; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    public static String getCellValue(Cell cell) {
+        String resultValue = "";
+        if (Objects.isNull(cell)) {
+            return resultValue;
+        }
+
+        CellType cellType = cell.getCellType();
+        switch (cellType) {
+            case STRING:
+                resultValue = StringUtils.isEmpty(cell.getStringCellValue()) ? "" : cell.getStringCellValue().trim();
+                break;
+            case BOOLEAN:
+                resultValue = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case NUMERIC:
+                Object val = cell.getNumericCellValue();
+                String formatDate = "";
+                switch (cell.getCellStyle().getDataFormat()){
+                    case 14:
+                        formatDate = "yyyy-MM-dd";
+                        break;
+                    case 20:
+                        formatDate = "HH:mm";
+                        break;
+                    case 21:
+                        formatDate = "HH:mm:ss";
+                        break;
+                    case 31:
+                        formatDate = "yyyy 年 MM 月 dd 日";
+                        break;
+                    case 32:
+                        formatDate = "HH 时 mm 分";
+                        break;
+                    case 33:
+                        formatDate = "HH 时 mm 分 mm 秒";
+                        break;
+                    case 57:
+                        formatDate = "yyyy 年 MM 月";
+                        break;
+                    case 58:
+                        formatDate = "MM 月 dd 日";
+                        break;
+                    case 176:
+                        formatDate = "yyyy-MM-dd HH:mm:ss";
+                        break;
+                }
+                if(!"".equals(formatDate)){
+                    resultValue = new SimpleDateFormat(formatDate).format(DateUtil.getJavaDate((Double) val));
+                }else{
+                    resultValue = new DecimalFormat("#.######").format(cell.getNumericCellValue());
+                }
+                break;
+            case FORMULA:
+                resultValue = cell.getCellFormula();
+                break;
+            case BLANK:
+            default:
+                break;
+        }
+        return resultValue;
+    }
+}

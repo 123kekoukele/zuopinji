@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hadluo.dao.ZhongqijianchaDao">
+
+    <resultMap type="com.hadluo.entity.ZhongqijianchaEntity" id="zhongqijianchaMap">
+        <result property="timubianhao" column="timubianhao"/>
+        <result property="ketimingcheng" column="ketimingcheng"/>
+        <result property="timuleixing" column="timuleixing"/>
+        <result property="zhuanye" column="zhuanye"/>
+        <result property="ketixingzhi" column="ketixingzhi"/>
+        <result property="jiaoshigonghao" column="jiaoshigonghao"/>
+        <result property="jiaoshixingming" column="jiaoshixingming"/>
+        <result property="xuehao" column="xuehao"/>
+        <result property="xueshengxingming" column="xueshengxingming"/>
+        <result property="zhongqijianjie" column="zhongqijianjie"/>
+        <result property="zhongqifujian" column="zhongqifujian"/>
+        <result property="zhongqishijian" column="zhongqishijian"/>
+    </resultMap>
+
+    <select id="selectListView" resultType="com.hadluo.entity.view.ZhongqijianchaView">
+        SELECT zhongqijiancha.* FROM zhongqijiancha zhongqijiancha
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+    <select id="selectView" resultType="com.hadluo.entity.view.ZhongqijianchaView">
+        SELECT * FROM zhongqijiancha zhongqijiancha
+        <where> 1=1 ${ew.sqlSegment}</where>
+    </select>
+
+</mapper>
